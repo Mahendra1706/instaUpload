@@ -50,9 +50,13 @@ from pydantic import BaseModel
 from typing import List
 from yt_dlp import YoutubeDL
 from datetime import datetime
-from utils.instaupload import upload_to_instagram  # <-- your uploader
+# from utils.instaupload import upload_to_instagram  
+from utils.instaupload import upload_to_instagram
+
 
 app = FastAPI()
+
+
 
 class ReelInput(BaseModel):
     url: str
@@ -84,14 +88,14 @@ async def download_reels(request: Request):
                 'verbose': True,
             }
 
-            print(f"🔻 Downloading from: {url}")
+            print(f" Downloading from: {url}")
             with YoutubeDL(ydl_opts) as ydl:
                 ydl.download([url])
-            print(f"✅ Downloaded as {final_video_filename}")
+            print(f" Downloaded as {final_video_filename}")
 
             # 🔺 Upload to Instagram
-            print("📤 Uploading to Instagram...")
-            result = upload_to_instagram(final_video_filename, caption="🔥 Auto-uploaded reel")
+            print("Uploading to Instagram...")
+            result = upload_to_instagram(final_video_filename, caption=" Auto-uploaded reel")
             print(result)
 
         return {"message": "All reels processed and uploaded!"}
